@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head profile="http://downloadicons.net/sites/default/files/music-icon-66405.png">
+    <meta charset="utf-8">
+    <title>Melody Hero</title>
+    <link rel="icon"
+          type="image/png"
+          href="http://downloadicons.net/sites/default/files/music-icon-66405.png">
+    <link href='https://fonts.googleapis.com/css?family=Orbitron:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>  </head>
+  <body>
+    <h1 style="font-family: Orbitron">Melody Hero</h1>
+    <div id="mute-button" class="off"></div>
+
+    <div class="welcome">
+      <p class="welcome-header">Welcome to Melody Hero! (Taken from Piano Hero)</p>
+      <p class="instructions">Use the home keys to play each note as it falls across the key.</p>
+      <p class="instructions">You will get points for hitting a note if at least half of it overlaps with the white key when you press the key.</p>
+      <p class="instructions">Take a minute to get used to the keyboard, then choose a song to play!</p>
+      <button class="song-button">Ode to Joy</button>
+      <button class="song-button">The Lion Sleeps Tonight</button>
+      <button class="song-button">Concerning Hobbits</button>
+    </div>
+
+   <div class="won hidden">
+     <p class="won-message"><p>
+     <p class="space">Choose another song to play again!</p>
+     <button class="song-button">Ode to Joy</button>
+     <button class="song-button">The Lion Sleeps Tonight</button>
+     <button class="song-button">Concerning Hobbits</button>
+   </div>
+
+    <canvas id="canvas"></canvas>
+
+    <link rel="stylesheet" type="text/css" href="./lib/css/style.css">
+    <script type="application/javascript" src="lib/bundle.js"></script>
+    <script src="./vendor/keymaster.js"></script>
+  </body>
+</html>
