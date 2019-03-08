@@ -1,19 +1,11 @@
 var express = require('express');
 var app = express();
-let {PythonShell} = require('python-shell')
+const path = require('path');
 
-// var path = 'piano.wav';
-
-// var options = {
-//   args: [path]
-// };
-
-PythonShell.run('chroma.py', function (err, results) {
-  if (err) throw err;
-});
+app.use(express.static(path.join(__dirname, './lib')));
 
 app.get('/', function(req, res) {
-  res.send(results)
+  res.sendFile(path.join(__dirname+"/index.html"));
 })
 
 app.listen(3000);
