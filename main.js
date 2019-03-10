@@ -33,6 +33,7 @@ app.post("/upload", function(req, res, next){
 		fs.exists(req.files.file.file, function(exists) {
 			if(exists) {
 				console.log("File GOTTETH");
+
         res.send({filename: req.files.file.filename, onsets: [1,2,3,3], pitches: [300, 400, 500, 600]})
 			} else {
 				res.end("Well, there is no magic for those who don’t believe in it!");
