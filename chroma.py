@@ -22,4 +22,7 @@ def get_frequencies():
       time_index = timestamps.tolist().index(time_val)
       freqs.append(melody[time_index])
 
+  print(freqs)
+  print(onsets)
+
   return freqs, onsets
