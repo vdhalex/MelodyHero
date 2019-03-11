@@ -4,8 +4,11 @@
   "description": "",
   "main": "webpack.config.js",
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-busboy": "^7.0.1",
     "jquery": "^3.1.0",
+    "multer": "^1.4.1",
     "python-shell": "^1.0.7",
     "sweetalert": "^1.1.3"
   },

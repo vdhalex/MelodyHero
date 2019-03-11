@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <head profile="http://downloadicons.net/sites/default/files/music-icon-66405.png">
+  <head>
     <meta charset="utf-8">
     <title>Melody Hero</title>
-    <link rel="icon"
-          type="image/png"
-          href="http://downloadicons.net/sites/default/files/music-icon-66405.png">
     <link href='https://fonts.googleapis.com/css?family=Orbitron:400,700' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>  </head>
   <body>
@@ -16,22 +13,29 @@
       <p class="welcome-header">Welcome to Melody Hero! (Taken from Piano Hero)</p>
       <p class="instructions">Use the home keys to play each note as it falls across the key.</p>
       <p class="instructions">You will get points for hitting a note if at least half of it overlaps with the white key when you press the key.</p>
-      <p class="instructions">Take a minute to get used to the keyboard, then choose a song to play!</p>
-      <button class="song-button">Ode to Joy</button>
+      <p class="instructions">Take a minute to get used to the keyboard, then import a .wav song!</p>
+      <br>
+      <form method="POST" action="/upload" enctype="multipart/form-data" id="audioForm">
+        <input type="file" name="file" />
+      </form>
+
+      <!-- <button class="song-button">Ode to Joy</button>
       <button class="song-button">The Lion Sleeps Tonight</button>
-      <button class="song-button">Concerning Hobbits</button>
+      <button class="song-button">Concerning Hobbits</button> -->
     </div>
 
    <div class="won hidden">
      <p class="won-message"><p>
-     <p class="space">Choose another song to play again!</p>
-     <button class="song-button">Ode to Joy</button>
-     <button class="song-button">The Lion Sleeps Tonight</button>
-     <button class="song-button">Concerning Hobbits</button>
+     <p class="space">Import another song to play again!</p>
+     <br>
+     <form method="POST" action="/upload" enctype="multipart/form-data" id="audioForm">
+       <input type="file" name="file" />
+     </form>
    </div>
 
     <canvas id="canvas"></canvas>
 
+    <script src="./ejs/ejs.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script type="application/javascript" src="./bundle.js"></script>
     <script src="./keymaster.js"></script>
