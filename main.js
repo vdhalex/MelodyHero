@@ -46,23 +46,24 @@ app.post("/upload", function(req, res, next){
 	} else {
     console.log("no files :(");
   }
-
-
-let options = {
-  mode: 'text',
-  pythonPath: '/chroma.py'
-};
-
-PythonShell.run('chroma.py', options, function (err) {
-  PythonShell.runString('get_frequencies()', null,  function (err, results)
-  {
-    if (err) throw err;
-    console.log('finished');
-  });
-  // console.log();("hello world");
-  if (err) throw err;
-  console.log('finished');
 });
+
+
+// let options = {
+//   mode: 'text',
+//   pythonPath: '/chroma.py'
+// };
+
+// PythonShell.run('chroma.py', options, function (err) {
+//   PythonShell.runString('get_frequencies()', null,  function (err, results)
+//   {
+//     if (err) throw err;
+//     console.log('finished');
+//   });
+//   // console.log();("hello world");
+//   if (err) throw err;
+//   console.log('finished');
+// });
 
 
 app.listen(3000);
