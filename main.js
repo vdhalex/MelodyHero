@@ -34,7 +34,10 @@ app.post("/upload", function(req, res, next){
 			if(exists) {
 				console.log("File GOTTETH");
 
-        res.send({filename: req.files.file.filename, onsets: [1,2,3,3], pitches: [300, 400, 500, 600]})
+        // This is where we want to call our python script.
+        // Onsets is the timing of each note and pitches hold the frequency/notes to be playedNotes
+        // IN the future, I hope that the python script will give me letter names for pitches so I don't have to calculate the range on them.
+        res.send({filename: req.files.file.filename, onsets: [0.434,1.23,2.11,2.111], pitches: [300, 400, 500, 600]})
 			} else {
 				res.end("Well, there is no magic for those who don’t believe in it!");
 			}
