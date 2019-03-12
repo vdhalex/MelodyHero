@@ -1,6 +1,5 @@
 from __future__ import print_function
-import librosa, numpy as np, scipy as sp
-import vamp
+import librosa, vamp, numpy as np
 
 def find_nearest(array, value):
   array = np.asarray(array)
@@ -8,7 +7,7 @@ def find_nearest(array, value):
   return array[idx]
 
 def get_frequencies():
-  audio, sr = librosa.load('piano.wav', sr=None)
+  audio, sr = librosa.load('trumpet.wav', sr=None)
   data = vamp.collect(audio, sr, "mtg-melodia:melodia")
   hop, melody = data['vector']
   timestamps = 8 * 128/sr + np.arange(len(melody)) * (128/sr)
@@ -22,7 +21,9 @@ def get_frequencies():
       time_index = timestamps.tolist().index(time_val)
       freqs.append(melody[time_index])
 
+  return freqs, onsets
+
+if __name__ == "__main__":
+  freqs, onsets = get_frequencies()
   print(freqs)
   print(onsets)
-
-  return freqs, onsets
