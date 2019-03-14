@@ -14,7 +14,6 @@ def get_frequencies():
 
   onsets = librosa.onset.onset_detect(audio, sr, units='time')
   freqs = []
-  temp_time = timestamps.tolist()
 
   for i in onsets:
       time_val = find_nearest(timestamps, i)
@@ -25,5 +24,8 @@ def get_frequencies():
 
 if __name__ == "__main__":
   freqs, onsets = get_frequencies()
-  print(freqs)
-  print(onsets)
+  print(len(freqs))
+  for i in freqs:
+    print(i)
+  for j in onsets:
+    print(j)
