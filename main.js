@@ -31,53 +31,17 @@ let runPy = new Promise (function (fulfill, reject) {
 // weird format for results (as seen in console log) -- need to fix
 
 runPy.then(function (vals) {
-	// console.log(vals);
-	let freqs = vals[0];
-	let onsets = [];
-	for (var i = 1; i < vals.length; i++) {
-    // console.log(parseFloat(vals[i]))
-		onsets = onsets.concat(vals[i])
-    // divide the string into separate numbers
-    // and the parseFloat each of them
-    // need a way to get rid of commas and extraneous brackets
-
-
-    temp = vals[i].split(" ")
-    for (var j= 0; j < temp.length; j++) {
-      temp[j] = temp[j].split(",")
-      console.log(temp[j][0])
-      // for (var k = 0; k < temp[j].length; k++){
-      //   temp[j]= temp[j].split('')
-      // }
-    }
-    for (var k = 0; k < temp.length; k++){
-      console.log(temp[j][0].split(" "))
-      console.log(parseFloat(temp[j][0]))
-    }
-
-
-    // console.log(temp)
-    // console.log(parseFloat(vals[i]))
-    // console.log(typeof vals[i])
-
-	}
-
-  // console.log(onsets)
-
-  // let test = [ '[ 0.42956916  0.59210884  0.77786848  0.94040816  1.11455782  1.27709751',
-  //   '  1.42802721  1.59056689  1.70666667  1.76471655  1.88081633  2.00852608',
-  //   '  2.1014059   2.55419501  2.60063492  2.71673469  2.85605442  3.2275737',
-  //   '  3.40172336  3.75002268  3.90095238  4.01705215  4.07510204  4.27247166',
-  //   '  4.37696145  4.41179138  4.7600907   4.93424036  5.07356009  5.12',
-  //   '  5.27092971  5.45668934  5.7353288   5.79337868  6.15328798  6.37387755',
-  //   '  6.52480726  6.68734694  6.8614966   7.0124263   7.10530612  7.18657596',
-  //   '  7.33750567  7.4768254   7.53487528  8.06893424  8.21986395  8.42884354',
-  //   '  8.64943311  8.7539229   8.93968254  9.03256236  9.10222222  9.28798186',
-  //   '  9.43891156  9.55501134  9.6246712   9.82204082  9.85687075 10.00780045',
-  //   ' 10.21678005 10.41414966 11.70285714 11.84217687 11.88861678]' ];
-
-	// console.log(freqs);
-	// console.log(onsets);
+  let size = parseInt(vals[0]);
+  console.log(vals.length);
+  console.log(size);
+  let freqs = []
+  let onsets = []
+  for (var i = 1; i <= size; i++) {
+    freqs.push(parseFloat(vals[i]));
+    onsets.push(parseFloat(vals[i+size]));
+  }
+  console.log(freqs);
+  console.log(onsets);
 });
 
 app.get('/', function(req, res) {
@@ -120,25 +84,5 @@ app.post("/upload", function(req, res, next){
     console.log("no files :(");
   }
 });
-
-
-
-
-// let options = {
-//   mode: 'text',
-//   pythonPath: '/chroma.py'
-// };
-
-// PythonShell.run('chroma.py', options, function (err) {
-//   PythonShell.runString('get_frequencies()', null,  function (err, results)
-//   {
-//     if (err) throw err;
-//     console.log('finished');
-//   });
-//   // console.log();("hello world");
-//   if (err) throw err;
-//   console.log('finished');
-// });
-
 
 app.listen(3000);
