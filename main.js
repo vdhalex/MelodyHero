@@ -9,7 +9,7 @@ var ejs = require("ejs");
 
 bb.extend(app, {
   upload: true,
-  path: '/uploads',
+  path: './uploads',
   allowedPath: /^\/upload$/
 })
 
@@ -74,11 +74,14 @@ app.post("/upload", function(req, res, next){
               freqNotes.push("K");
             }
           }
+          onsets = onsets.map((el) => {
+            return el*10;
+          })
           console.log(freqNotes);
           console.log(onsets);
+          res.send({filename: req.files.file.filename, onsets: onsets, pitches: freqs})
         });
-
-        res.send({filename: req.files.file.filename, onsets: [0.434,1.23,2.11,2.111], pitches: [300, 400, 500, 600]})
+        
 			} else {
 				res.end("Well, there is no magic for those who don’t believe in it!");
 			}

@@ -1,5 +1,5 @@
 from __future__ import print_function
-import librosa, vamp, numpy as np
+import librosa, vamp, numpy as np, sys
 
 def find_nearest(array, value):
   array = np.asarray(array)
@@ -23,7 +23,8 @@ def get_frequencies(path):
   return freqs, onsets
 
 if __name__ == "__main__":
-  freqs, onsets = get_frequencies()
+  x = str(sys.argv[1])
+  freqs, onsets = get_frequencies(x)
   print(len(freqs))
   for i in freqs:
     print(i)
