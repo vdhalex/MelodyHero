@@ -32,16 +32,36 @@ let runPy = new Promise (function (fulfill, reject) {
 
 runPy.then(function (vals) {
   let size = parseInt(vals[0]);
-  console.log(vals.length);
-  console.log(size);
+  // console.log(vals.length);
+  // console.log(size);
   let freqs = []
   let onsets = []
   for (var i = 1; i <= size; i++) {
     freqs.push(parseFloat(vals[i]));
     onsets.push(parseFloat(vals[i+size]));
   }
-  console.log(freqs);
-  console.log(onsets);
+  var max = Math.max.apply(null,freqs)
+  var min = Math.min.apply(null,freqs)
+  var midpoint = min + (max - min)/2
+  var firstQuartile = min + (midpoint - min)/2
+  var thirdQuartile = midpoint + (max - midpoint)/2
+  let freqNotes = []
+  for(var i = 0; i < freqs.length; i++){
+    //min --> 1Q = D
+    //1Q --> MidPoint = F
+    //MidPoint --> 3Q = J
+    //3Q --> Max = K
+    if(freqs[i] >= min && freqs[i] < firstQuartile) {
+      freqNotes.push("D");
+    } else if (freqs[i] >= firstQuartile && freqs[i] < midpoint) {
+      freqNotes.push("F");
+    } else if (freqs[i] >= midpoint && freqs[i] < thirdQuartile) {
+      freqNotes.push("J");
+    } else if (freqs[i] >= thirdQuartile && freqs[i] < max) {
+      freqNotes.push("K");
+    }
+  }
+  // console.log(freqNotes);
 });
 
 app.get('/', function(req, res) {
