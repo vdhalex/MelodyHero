@@ -21,48 +21,7 @@ app.set('view engine', 'ejs');
 
 // implemented as a promise because the python would run last regardless of the order in which they were called
 
-let runPy = new Promise (function (fulfill, reject) {
-	PythonShell.run('chroma.py', null, function (err, results) {
-		if (err) reject(err);
-		fulfill(results);
-	});
-});
 
-// weird format for results (as seen in console log) -- need to fix
-
-runPy.then(function (vals) {
-  let size = parseInt(vals[0]);
-  // console.log(vals.length);
-  // console.log(size);
-  let freqs = []
-  let onsets = []
-  for (var i = 1; i <= size; i++) {
-    freqs.push(parseFloat(vals[i]));
-    onsets.push(parseFloat(vals[i+size]));
-  }
-  var max = Math.max.apply(null,freqs)
-  var min = Math.min.apply(null,freqs)
-  var midpoint = min + (max - min)/2
-  var firstQuartile = min + (midpoint - min)/2
-  var thirdQuartile = midpoint + (max - midpoint)/2
-  let freqNotes = []
-  for(var i = 0; i < freqs.length; i++){
-    //min --> 1Q = D
-    //1Q --> MidPoint = F
-    //MidPoint --> 3Q = J
-    //3Q --> Max = K
-    if(freqs[i] >= min && freqs[i] < firstQuartile) {
-      freqNotes.push("D");
-    } else if (freqs[i] >= firstQuartile && freqs[i] < midpoint) {
-      freqNotes.push("F");
-    } else if (freqs[i] >= midpoint && freqs[i] < thirdQuartile) {
-      freqNotes.push("J");
-    } else if (freqs[i] >= thirdQuartile && freqs[i] < max) {
-      freqNotes.push("K");
-    }
-  }
-  // console.log(freqNotes);
-});
 
 app.get('/', function(req, res) {
   res.render("index")
@@ -75,25 +34,49 @@ app.post("/upload", function(req, res, next){
 		    return next(new Error("Hey, first would you select a file?"));
 		}
 		fs.exists(req.files.file.file, function(exists) {
-			if(exists) {
-				console.log("File GOTTETH");
+			if (exists) {
+        console.log("File GOTTETH");
+        
+        let options = {
+          args: [req.files.file.file]
+        };
 
-        // This is where we want to call our python script.
-        // Onsets is the timing of each note and pitches hold the frequency/notes to be playedNotes
-				// IN the future, I hope that the python script will give me letter names for pitches so I don't have to calculate the range on them.
-				// let freqs = [];
-				// let onsets = [];
-
-				// PythonShell.run('chroma.py', null, function (err, res) {
-				// 	if (err) throw err;
-				// 	console.log("finished");
-				// 	freqs = res[0];
-				// 	onsets = res[1];
-				// 	console.log(freqs);
-				// 	console.log(onsets);
-				// });
-
-
+        let runPy = new Promise (function (fulfill, reject) {
+          PythonShell.run('chroma.py', options, function (err, results) {
+            if (err) reject(err);
+            fulfill(results);
+          });
+        });
+        
+        runPy.then(function (vals) {
+          let size = parseInt(vals[0]);
+          let freqs = [];
+          let onsets = [];
+          for (var i = 1; i <= size; i++) {
+            freqs.push(parseFloat(vals[i]));
+            onsets.push(parseFloat(vals[i+size]));
+          }
+        
+          var max = Math.max.apply(null,freqs);
+          var min = Math.min.apply(null,freqs);
+          var midpoint = min + (max - min)/2;
+          var firstQuartile = min + (midpoint - min)/2;
+          var thirdQuartile = midpoint + (max - midpoint)/2;
+          let freqNotes = [];
+          for (var i = 0; i < freqs.length; i++) {
+            if (freqs[i] >= min && freqs[i] < firstQuartile) {
+              freqNotes.push("D");
+            } else if (freqs[i] >= firstQuartile && freqs[i] < midpoint) {
+              freqNotes.push("F");
+            } else if (freqs[i] >= midpoint && freqs[i] < thirdQuartile) {
+              freqNotes.push("J");
+            } else if (freqs[i] >= thirdQuartile && freqs[i] <= max) {
+              freqNotes.push("K");
+            }
+          }
+          console.log(freqNotes);
+          console.log(onsets);
+        });
 
         res.send({filename: req.files.file.filename, onsets: [0.434,1.23,2.11,2.111], pitches: [300, 400, 500, 600]})
 			} else {
