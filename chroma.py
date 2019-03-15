@@ -6,8 +6,8 @@ def find_nearest(array, value):
   idx = (np.abs(array - value)).argmin()
   return array[idx]
 
-def get_frequencies():
-  audio, sr = librosa.load('trumpet.wav', sr=None)
+def get_frequencies(path):
+  audio, sr = librosa.load(path, sr=None)
   data = vamp.collect(audio, sr, "mtg-melodia:melodia")
   hop, melody = data['vector']
   timestamps = 8 * 128/sr + np.arange(len(melody)) * (128/sr)
