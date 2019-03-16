@@ -56,28 +56,11 @@ app.post("/upload", function(req, res, next){
             freqs.push(parseFloat(vals[i]));
             onsets.push(parseFloat(vals[i+size]));
           }
-        
-          var max = Math.max.apply(null,freqs);
-          var min = Math.min.apply(null,freqs);
-          var midpoint = min + (max - min)/2;
-          var firstQuartile = min + (midpoint - min)/2;
-          var thirdQuartile = midpoint + (max - midpoint)/2;
-          let freqNotes = [];
-          for (var i = 0; i < freqs.length; i++) {
-            if (freqs[i] >= min && freqs[i] < firstQuartile) {
-              freqNotes.push("D");
-            } else if (freqs[i] >= firstQuartile && freqs[i] < midpoint) {
-              freqNotes.push("F");
-            } else if (freqs[i] >= midpoint && freqs[i] < thirdQuartile) {
-              freqNotes.push("J");
-            } else if (freqs[i] >= thirdQuartile && freqs[i] <= max) {
-              freqNotes.push("K");
-            }
-          }
+
           onsets = onsets.map((el) => {
-            return el*10;
+            return el*3;
           })
-          console.log(freqNotes);
+          console.log(freqs);
           console.log(onsets);
           res.send({filename: req.files.file.filename, onsets: onsets, pitches: freqs})
         });
