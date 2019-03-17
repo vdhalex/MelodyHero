@@ -41,6 +41,7 @@ def get_frequencies(path):
   # Run Melodia on audio to track pitches of melody and get output array of frequencies
   data = vamp.collect(audio, sr, "mtg-melodia:melodia")
   hop, melody = data['vector']
+  timestamps = 8 * 128/sr + np.arange(len(melody)) * (128/sr)
 
   # Setting all negative values in melody to None
   melody_pos = melody[:]
