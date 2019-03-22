@@ -58,7 +58,7 @@ app.post("/upload", function(req, res, next){
           }
 
           onsets = onsets.map((el) => {
-            return el*3;
+            return el;
           })
           console.log(freqs);
           console.log(onsets);
