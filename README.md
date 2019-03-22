@@ -15,8 +15,6 @@ pip install librosa vamp
 npm install
 python3 chroma.py
 ```
-
-THIS IS UNFINISHED
 =======
 
 References:
