@@ -36,7 +36,7 @@ app.post("/upload", function(req, res, next){
 		fs.exists(req.files.file.file, function(exists) {
 			if (exists) {
         console.log("File GOTTETH");
-        
+
         let options = {
           args: [req.files.file.file]
         };
@@ -47,7 +47,7 @@ app.post("/upload", function(req, res, next){
             fulfill(results);
           });
         });
-        
+
         runPy.then(function (vals) {
           let size = parseInt(vals[0]);
           let freqs = [];
@@ -58,13 +58,13 @@ app.post("/upload", function(req, res, next){
           }
 
           onsets = onsets.map((el) => {
-            return el*3;
+            return el;
           })
           console.log(freqs);
           console.log(onsets);
           res.send({filename: req.files.file.filename, onsets: onsets, pitches: freqs})
         });
-        
+
 			} else {
 				res.end("Well, there is no magic for those who don’t believe in it!");
 			}
