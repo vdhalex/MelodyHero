@@ -11,11 +11,11 @@ Note: We use Justin Salamon's pitch tracker Melodia to track pitch in our audio 
 cd ~/path/to/directory
 git clone https://github.com/vdhalex/MelodyHero.git
 cd MelodyHero
-pip install librosa vamp
+pip install librosa vamp numpy
 npm install
-python3 chroma.py
+node main.js
 ```
-=======
+Then just nagivate to localhost:3000 on your browser, upload your .wav file, and enjoy!
 
 References:
 
